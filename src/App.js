@@ -43,9 +43,11 @@ const App = () => {
   const [usernameInput, setUsernameInput] = useState('')
   const [passwordInput, setPasswordInput] = useState('')
   const [passwords, setPasswords] = useState([])
-  const [error, setError] = useState('')
   const [searchInput, setSearchInput] = useState('')
   const [isChecked, setIsChecked] = useState(false)
+  const [usernameError, setUsernameError] = useState(false)
+  const [websiteError, setWebsiteError] = useState(false)
+  const [passwordError, setPasswordError] = useState(false)
 
   const imageUrl = (
     <img
@@ -67,24 +69,23 @@ const App = () => {
 
   const onAddPasswords = event => {
     event.preventDefault()
-    if (!websiteInput || !usernameInput || !passwordInput) {
-      setError('Please fill in all fields')
-      return
-    }
 
-    const newPassword = {
-      id: v4(),
-      website: websiteInput,
-      username: usernameInput,
-      password: passwordInput,
-      isCheckedOf: isChecked,
+    if (usernameInput && websiteInput && passwordInput) {
+      const newPassword = {
+        id: v4(),
+        username: usernameInput,
+        website: websiteInput,
+        password: passwordInput,
+      }
+      setPasswords([...passwords, newPassword])
+      setUsernameInput('')
+      setWebsiteInput('')
+      setPasswordInput('')
+    } else {
+      setUsernameError(!usernameInput)
+      setWebsiteError(!websiteInput)
+      setPasswordError(!passwordInput)
     }
-    setPasswords([...passwords, newPassword])
-
-    setWebsiteInput('')
-    setUsernameInput('')
-    setPasswordInput('')
-    console.log(isChecked)
   }
 
   const filteredOutputs = passwords.filter(output => {
@@ -113,7 +114,6 @@ const App = () => {
             >
               Add New Password
             </h1>
-
             <label className="label-container">
               <img
                 src="https://assets.ccbp.in/frontend/react-js/password-manager-website-img.png"
@@ -125,9 +125,15 @@ const App = () => {
                 placeholder="Enter Website"
                 id="website"
                 value={websiteInput}
-                onChange={e => setWebsiteInput(e.target.value)}
+                onChange={e => {
+                  setWebsiteInput(e.target.value)
+                  setWebsiteError(false)
+                }}
               />
             </label>
+            {websiteError && (
+              <p className="error-message">Please enter a website</p>
+            )}
 
             <label className="label-container">
               <img
@@ -140,10 +146,15 @@ const App = () => {
                 placeholder="Enter Username"
                 id="username"
                 value={usernameInput}
-                onChange={e => setUsernameInput(e.target.value)}
+                onChange={e => {
+                  setUsernameInput(e.target.value)
+                  setUsernameError(false)
+                }}
               />
             </label>
-
+            {usernameError && (
+              <p className="error-message">Please enter a username</p>
+            )}
             <label className="label-container">
               <img
                 src="https://assets.ccbp.in/frontend/react-js/password-manager-password-img.png"
@@ -155,10 +166,15 @@ const App = () => {
                 placeholder="Enter Password"
                 id="password"
                 value={passwordInput}
-                onChange={e => setPasswordInput(e.target.value)}
+                onChange={e => {
+                  setPasswordInput(e.target.value)
+                  setPasswordError(false)
+                }}
               />
             </label>
-            {error && <p>{error}</p>}
+            {passwordError && (
+              <p className="error-message">Please enter a password</p>
+            )}
             <button
               type="submit"
               style={{position: 'absolute', right: 50, bottom: 20}}
@@ -177,9 +193,9 @@ const App = () => {
       </div>
       <div className="mini-container-two">
         <div className="search-count-container">
-          <div>
-            <h1>Your Passwords {'  '}</h1>
-            <p className="span-length">{passwords.length}</p>
+          <div className="counter-container">
+            <h1>Your Passwords </h1>
+            <p className="span-length"> {passwords.length}</p>
           </div>
 
           <label className="label-container">

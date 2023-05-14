@@ -115,15 +115,6 @@ input:focus {
   justify-content: space-between;
   align-items: center;
 }
-.span-length {
-  background-color: #f34079;
-  padding-top: 1px;
-  padding-bottom: 1px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-radius: 3px;
-  color: #fff;
-}
 
 .output-container {
   display: flex;
@@ -142,6 +133,8 @@ input:focus {
   border-style: groove;
   border-radius: 10px;
   background-color: transparent;
+  margin-right: 20px;
+  margin-bottom: 20px;
 }
 .checkbox-main-container {
   width: 100%;
@@ -203,7 +196,6 @@ input:active {
 }
 .list-type {
   list-style-type: none;
-  margin-right: 20px;
 }
 .delete-button {
   border: none;
@@ -215,4 +207,26 @@ input:active {
   width: 20px;
   margin-left: 50px;
   background-color: transparent;
+}
+.counter-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  font-family: 'bree-serif';
+  font-size: 12px;
+}
+.span-length {
+  margin-left: 10px;
+  background-color: #f34079;
+  margin-top: 15px;
+  border-radius: 3px;
+  color: #fff;
+  height: 20px;
+  width: 30px;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
 }
